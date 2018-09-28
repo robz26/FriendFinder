@@ -1,0 +1,39 @@
+body {
+    width: 100%;
+   margin: 0px auto; 
+
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
+}
+
+header {
+    height: 100px;
+}
+
+header > nav {
+    height: 100%;
+}
+
+#logo-icon {
+   margin-left: 50px;
+   margin-top: 20px;
+}
+
+#logo {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+#head-nav-links {
+    margin-right: 50px;
+    margin-top: 20px;
+}
+
+.mainpanel{
+   margin: 50px;
+}
+
+#mainpanel-content {
+    margin: 50px;
+}

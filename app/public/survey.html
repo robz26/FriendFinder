@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue accent-1">
+                <i id="logo-icon" class="fas fa-users"></i>
+                <a href="/" class="brand-logo" id="logo">FriendMatch</a>
+                <ul class="right hide-on-med-and-down" id="head-nav-links">
+                    <li>
+                        <a href="/survey">Survey</a>
+                    </li>
+                    <li>
+                        <a href="/api/friends">Friends API JSON</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('select').material_select();
+            $('.modal').modal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%' // Ending top style attribute
+            });
+        });
+        // Activate submit button
+        $('#submitButton').on('click', function (event) {
+            event.preventDefault();
+            // Gather user inputs
+            var userInput = {
+                name: $('#userName').val().trim(),
+                photo: $('#userPhoto').val().trim(),
+                scores: [
+                    $('#question1').val().trim(),
+                    $('#question2').val().trim(),
+                    $('#question3').val().trim(),
+                    $('#question4').val().trim(),
+                    $('#question5').val().trim(),
+                    $('#question6').val().trim(),
+                    $('#question7').val().trim(),
+                    $('#question8').val().trim(),
+                    $('#question9').val().trim(),
+                    $('#question10').val().trim()
+                ]
+            };
+            // console.log('userInput = ' + JSON.stringify(userInput));
+            // Add user inputs to friends list
+            $.post('/api/friends', userInput)
+                .done(function (data) {
+                    // console.log('response = ' + JSON.stringify(data));
+                    // Set the name and image values of friend match
+                    $('#userMatch').html(data.matchName);
+                    $("#userMatchImage").attr("src", data.matchImage);
+                    // Pop open the modal dialog
+                    $('#modal1').modal('open');
+                });
+        });
+    </script>
+</body>
+
+</html>
